@@ -1,0 +1,269 @@
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Title of page</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="libs/fontawesome/css/all.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/script.js"></script>
+</head>
+<body>
+	<section class="section-left">
+		<header>
+			<div class="stores-list-heading">
+				<h1>Stores list</h1>
+			</div>
+			<div class="search">
+				<span>
+					<input type="search" name="q" placeholder="Search">
+					<button class="buttonSearch"><i class="fas fa-search"></i></button>
+					<button class="buttonRefresh"><i class="fas fa-sync-alt"></i></button>
+				</span>
+			</div>
+			<div class="leftHeaderIcons">
+				<button class="arrow"><i class="fas fa-chevron-up"></i></button>
+				<button class="fix"><i class="fas fa-syringe"></i></button>
+			</div>
+		</header>
+		<main>
+			<div class="spisok">
+				<ul>
+					<template id="row">
+						<li>
+							<div class="stolbec stolbec1">
+								<div class="stroka stroka1"></div>
+								<div class="stroka stroka2"></div>
+							</div>
+							<div class="stolbec stolbec2">
+								<div class="stroka stroka1"></div>
+								<div class="stroka stroka2"></div>
+							</div>
+						</li>
+					</template>
+				</ul>
+			</div>
+		</main>
+		<footer>
+			<div class="leftFooter">
+				<button id="storeCreate">Create</button>
+			</div>
+			<form id="modalStore" name="theForm" novalidate>
+				<div class="modal-store-content">
+					<div class="create-store-header">
+						Create new store
+					</div>
+					<span><sup>&#9913;</sup>Name:</span><br>
+					<input type="text" id="Name" name="Name" placeholder="Enter name" required><br>
+					<span class="error"></span><br>
+					<span><sup>&#9913;</sup>Email:</span><br>
+					<input type="email" id="Email" name="Email" placeholder="Enter email" required><br>
+					<span class="error"></span><br>
+					<span><sup>&#9913;</sup>Phone Number:</span><br>
+					<input type="tel" id="PhoneNumber" name="PhoneNumber" placeholder="Enter phone number" required><br>
+					<span class="error"></span><br>
+					<span><sup>&#9913;</sup>Address:</span><br>
+					<input type="text" id="Address" name="Address" placeholder="Enter address" required><br>
+					<span class="error"></span><br>
+					<span><sup>&#9913;</sup>Established date:</span><br>
+					<input type="date" id="Established" name="Established" placeholder="MMM d, y" required><br>
+					<span class="error"></span><br>
+					<span><sup>&#9913;</sup>Floor area:</span><br>
+					<input type="number" id="FloorArea" name="FloorArea" placeholder="Enter floor area (in sq.m)" required><br>
+					<span class="error"></span><br>
+					<div class="create-store-footer">
+						<button class="create-store-cancel">
+							Cancel
+						</button>
+						<button id="create-store-create" class="create-store-create">
+							Create
+						</button>
+					</div>
+				</div>
+			</form>
+			<div id="modalError">
+				<div class="modal-error-content">
+					<div class="modal-error-header"><i class="fas fa-exclamation-circle"></i>Error</div>
+					<div class="modal-error-body">Please fix validations errors first!</div>
+					<div class="modal-error-footer">
+						<button class="modal-error-button">Close</button>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</section>
+	<div class="store-not-selected">
+		<div class="not-selected-header">
+			Store is not selected
+		</div>
+		<div class="not-selected-main">
+			<div class="not-selected-icon"><i class="fas fa-store-alt fa-5x"></i></div>
+			<div class="not-selected-label">The store is not selected</div>
+			<div class="not-selected-description">Please select the store to proceed</div>
+		</div>
+	</div>
+	<section class="section-right">
+		<header>
+			<div class="store-details-header">
+				<h1>Store Details</h1>
+			</div>
+			<template id="storeInfo">
+				<div class="storeInfo" id="id1">
+					<div><b>Email: </b><span></span></div>
+					<div><b>Phone Number: </b><span></span></div>
+					<div><b>Address: </b><span></span></div>
+					<div><b>Established Date: </b><span></span></div>
+					<div><b>Floor Area: </b><span></span></div>
+				</div>
+			</template>
+			<div class="right-header-filters">
+				<button class="arrow"><i class="fas fa-chevron-up"></i></button>
+				<button class="fix"><i class="fas fa-syringe"></i></button>
+			</div>
+			<template id="productAvailability">
+				<div class="productAvailability" id="id2">
+					<div class="numberAll">
+						<div class="number"><span>100</span></div>
+						<div class="all"><button id="filterButtonAll">All</button></div>
+					</div>
+					<div class="filters">
+						<div class="filter ok">
+							<span>50</span>
+							<button id="filterButtonOk"><i class="far fa-check-square"></i></button>
+							<p>Ok</p>
+						</div>
+						<div class="filter storage">
+							<span>30</span>
+							<button id="filterButtonStorage"><i class="fas fa-exclamation-triangle"></i></button>
+							<p>Storage</p>
+						</div>
+						<div class="filter out">
+							<span>20</span>
+							<button id="filterButtonOut"><i class="fas fa-exclamation-circle"></i></button>
+							<p>Out of stock</p>
+						</div>
+					</div>
+				</div>
+			</template>
+		</header>
+		<main>
+			<table id="myTable" class="table_sort">
+				<caption>Products</caption>
+				<thead>
+					<tr class="thead">
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>Name</th>
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>Price</th>
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>Specs</th>
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>SupplierInfo</th>
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>Country of origin</th>
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>Prod. company</th>
+						<th><button class="sortButton"><i class="fas fa-exchange-alt fa-rotate-90"></i></button>Rating</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<template id="tableRow">
+						<tr id="one">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>
+								<button class="editProduct"><i class="fas fa-pencil-alt"></i></button>
+							</td>
+							<td>
+								<button class="deleteProduct"><i class="far fa-times-circle fa-lg"></i></button>
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+		</main>
+		<div class="rightFooter">
+			<button id="productCreate" class="create">Create</button>
+			<button id="storeDelete" class="delete">Delete</button>
+		</div>
+		<form id="modalProduct" name="theForm" novalidate>
+			<div class="modal-product-content">
+				<div class="create-product-header">
+					Create new product
+				</div>
+				<span><sup>&#9913;</sup>Name:</span><br>
+				<input type="text" id="PName" name="Name" placeholder="Enter name" required><br>
+				<span class="error"></span><br>
+				<span><sup>&#9913;</sup>Price:</span><br>
+				<input type="number" id="PPrice" name="Price" placeholder="Enter price" required><br>
+				<span class="error"></span><br>
+				<span><sup>&#9913;</sup>Specs:</span><br>
+				<textarea id="PSpecs" name="Specs" placeholder="Enter product specs" required></textarea><br>
+				<span><sup>&#9913;</sup>Rating:</span><br>
+				<input type="number" id="PRating" name="Rating" placeholder="Enter rating 1..5" required><br>
+				<span class="error"></span><br>
+				<span><sup>&#9913;</sup>Supplier info:</span><br>
+				<textarea id="PSupInfo" name="SupplierInfo" placeholder="Enter supplier info" required></textarea><br>
+				<span><sup>&#9913;</sup>Made in:</span><br>
+				<input type="text" id="PMadeIn" name="MadeIn" placeholder="Enter origin country" required><br>
+				<span class="error"></span><br>
+				<span><sup>&#9913;</sup>Production company name:</span><br>
+				<input type="text" id="PCompany" name="ProductionCompanyName" placeholder="Enter manufacturer name" required><br>
+				<span class="error"></span><br>
+				<span><sup>&#9913;</sup>Made in:</span><br>
+				<input type="text" id="PStatus" name="Status" placeholder="Enter status" required><br>
+				<span class="error"></span><br>
+				<div class="create-product-footer">
+					<button class="create-product-cancel">
+						Cancel
+					</button>
+					<button id="create-product-create" class="create-product-create">
+						Create
+					</button>
+				</div>
+			</div>
+		</form>
+		<form id="modalProductEdit" name="theForm" novalidate>
+		<div class="modal-product-content">
+			<div class="create-product-header">
+				Edit product
+			</div>
+			<span><sup>&#9913;</sup>Name:</span><br>
+			<input type="text" id="EName" name="Name" placeholder="Enter name" required><br>
+			<span class="error"></span><br>
+			<span><sup>&#9913;</sup>Price:</span><br>
+			<input type="number" id="EPrice" name="Price" placeholder="Enter price" required><br>
+			<span class="error"></span><br>
+			<span><sup>&#9913;</sup>Specs:</span><br>
+			<textarea id="ESpecs" name="Specs" placeholder="Enter product specs" required></textarea><br>
+			<span><sup>&#9913;</sup>Rating:</span><br>
+			<input type="number" id="ERating" name="Rating" placeholder="Enter rating 1..5" required><br>
+			<span class="error"></span><br>
+			<span><sup>&#9913;</sup>Supplier info:</span><br>
+			<textarea id="ESupInfo" name="SupplierInfo" placeholder="Enter supplier info" required></textarea><br>
+			<span><sup>&#9913;</sup>Made in:</span><br>
+			<input type="text" id="EMadeIn" name="MadeIn" placeholder="Enter origin country" required><br>
+			<span class="error"></span><br>
+			<span><sup>&#9913;</sup>Production company name:</span><br>
+			<input type="text" id="ECompany" name="ProductionCompanyName" placeholder="Enter manufacturer name" required><br>
+			<span class="error"></span><br>
+			<span><sup>&#9913;</sup>Made in:</span><br>
+			<input type="text" id="EStatus" name="Status" placeholder="Enter status" required><br>
+			<span class="error"></span><br>
+			<div class="create-product-footer">
+				<button id="edit-product-cancel" class="create-product-cancel">
+					Cancel
+				</button>
+				<button id="edit-product-create" class="create-product-create">
+					Save
+				</button>
+			</div>
+		</div>
+	</form>
+	</section>
+</body>
+</html>
